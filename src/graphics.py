@@ -180,23 +180,24 @@ def onMousePress(app, mouseX, mouseY):
     #need to fix bugs with being in check
 
 def showLegalMoves(app):
-    app.currentMoves = copy.copy(app.newGame.legalMoves[app.selectedPiece])
-    if "k" in app.selectedPiece:
-        for i in range(0, len(app.currentMoves)):
-            move = app.currentMoves[i]
-            if "castle" in move:
-                if move == "castleShort":
-                    app.currentMoves.pop(i)
-                    if app.newGame.turn == 1:
-                        app.currentMoves.append((7, 6))
-                    else:
-                        app.currentMoves.append((0, 6))
-                elif move == "castleLong":
-                    app.currentMoves.pop(i)
-                    if app.newGame.turn == 1:
-                        app.currentMoves.append((7, 2))
-                    else:
-                        app.currentMoves.append((0, 2))
+    if app.selectedPiece in app.newGame.legalMoves:
+        app.currentMoves = copy.copy(app.newGame.legalMoves[app.selectedPiece])
+        if "k" in app.selectedPiece:
+            for i in range(0, len(app.currentMoves)):
+                move = app.currentMoves[i]
+                if "castle" in move:
+                    if move == "castleShort":
+                        app.currentMoves.pop(i)
+                        if app.newGame.turn == 1:
+                            app.currentMoves.append((7, 6))
+                        else:
+                            app.currentMoves.append((0, 6))
+                    elif move == "castleLong":
+                        app.currentMoves.pop(i)
+                        if app.newGame.turn == 1:
+                            app.currentMoves.append((7, 2))
+                        else:
+                            app.currentMoves.append((0, 2))
 
 def run(app):
     if app.computerPlays:

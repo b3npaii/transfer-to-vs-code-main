@@ -167,14 +167,15 @@ class Game:
                     newMoves = []
                     triggered = False
                     for newPiece in self.legalMoves:
-                        for move in self.legalMoves[newPiece]:
-                            if type(move) == tuple:
-                                newMoves.append(move)
-                    for x, y in newMoves:
-                        if self.board[x][y] != 0 and "k" in self.board[x][y]:
-                            if move in copiedMoves[piece]:
-                                copiedMoves[piece].remove(move)
-                                triggered = True
+                        newMoves += self.legalMoves[newPiece]
+                    try:
+                        for x, y in newMoves:
+                            if self.board[x][y] != 0 and "k" in self.board[x][y]:
+                                if move in copiedMoves[piece]:
+                                    copiedMoves[piece].remove(move)
+                                    triggered = True
+                    except:
+                        continue
                     if not triggered:
                         i += 1
                     #need to make them copies or else it changes copiedBoard, etc (i forgot this and was stuck on this for an hour)
